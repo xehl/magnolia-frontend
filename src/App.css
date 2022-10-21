@@ -1,3 +1,27 @@
+body {
+  margin: 0;
+  background-color: #712c3b;
+}
 .App {
   text-align: center;
+  height: 100%;
+  margin: 0px;
+}
+.logo {
+  font-family: Zen Antique;
+  font-size: 40px;
+  color: white;
+  text-align: left;
+}
+.top-container {
+  width: 100%;
+  height: 350px;
+  margin: 0 auto;
+  border-radius: 10px;
+  background-color: white;
+}
+div {
+  font-family: Lexend Deca;
+  margin: 8px;
+  margin-top: 12px;
 }

@@ -8,14 +8,22 @@ export default function Browse() {
   useEffect(() => {
     axios.get("http://localhost:4999/entries/").then((res) => {
       console.log(res.data.small);
-      setData(res.data.small);
+      let arr = res.data.small
+      setData(res.data.small.slice(arr.length - 5, arr.length));
     });
   }, []);
 
   return (
     <div>
       Browse all: 
-      {data && data.map((entry) => <div key={entry._id}>{entry.author_fname}</div>)}
+      {data && data.map((entry) => {
+        return (
+          <div key={entry._id}>
+            <div>{entry.author_fname}</div>
+            <div>text is: {entry.text}</div>
+          </div>
+        )
+      })}
     </div>
   )
 }

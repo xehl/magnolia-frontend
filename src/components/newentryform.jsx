@@ -1,23 +1,28 @@
 import axios from "axios"
+import { useRef } from "react"
+import { useNavigate as navigate } from "react-router-dom";
 
 export default function NewEntryForm() {
 
   // store form info in plain JS object (no need for state change until submit)
-  let form = {
+  let form = useRef({
     author_fname: null,
     author_lastname: null,
     text: null,
     // location: null,
-  }
+  })
 
   function submitForm(e) {
     e.preventDefault();
-    const newEntry = { ...form };
-
+    const newEntry = { ...form.current };
     console.log(newEntry)
-
     axios.post("http://localhost:4999/entries/", newEntry)
-      .then(res => console.log(res))
+      .then(
+        (res) => {
+          console.log(res)
+          navigate("/")
+        }
+      )
       .catch(err => console.error(err))
   }
 
@@ -32,8 +37,7 @@ export default function NewEntryForm() {
             type="text"
             id="firstname"
             onChange={(e) => {
-              form.author_fname = e.target.value
-              console.log("first name changed" + form.author_fname)
+              form.current.author_fname = e.target.value
             }}
           />
         </div>
@@ -43,8 +47,7 @@ export default function NewEntryForm() {
             type="text"
             id="lastname"
             onChange={(e) => {
-              form.author_lastname = e.target.value
-              console.log("last name changed" + form.author_lastname)
+              form.current.author_lastname = e.target.value
             }}
           />
         </div>
@@ -52,9 +55,7 @@ export default function NewEntryForm() {
           <textarea
             id="text"
             onChange={(e) => {
-              form.text = e.target.value
-              console.log("entry text changed" + form.text)
-              console.log(form)
+              form.current.text = e.target.value
             }}
           />
         </div>
